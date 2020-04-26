@@ -1,5 +1,8 @@
-const sth = (name: string) => {
-  console.log(`Hello ${name}`);
-};
+import { Form } from "./Form";
 
-sth("Damian");
+export class App {
+  constructor() {
+    this.form = new Form();
+  }
+  form: Form;
+}
