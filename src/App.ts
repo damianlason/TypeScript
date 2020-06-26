@@ -1,8 +1,12 @@
-import { Form } from "./Form";
+import { Form } from "./Form.js";
 
 export class App {
+  form: Form;
+
   constructor() {
     this.form = new Form();
   }
-  form: Form;
+  
 }
+
+let app = new App();
