@@ -7,5 +7,7 @@ export class Form {
     return "getValue function";
   };
 
-  render = () => {};
+  render = () => {
+
+  };
 }
