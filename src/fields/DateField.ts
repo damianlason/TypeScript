@@ -1,5 +1,6 @@
 import { Field } from "../interfaces/Field.js";
 import { FieldType } from "../enums/FieldType.js";
+import { FieldLabel } from "./FieldLabel.js";
 
 export class DateField implements Field {
   name: string;
@@ -7,11 +8,28 @@ export class DateField implements Field {
   type: FieldType.Date;
   value: string;
 
-  render: () => HTMLDivElement;
+  render: () => HTMLDivElement = (): HTMLDivElement => {
+    let inputField = document.createElement("div");
+    inputField.className = "form-group";
 
-  constructor(name: string, label: string, value: string) {
+    let label = new FieldLabel(this).render();
+
+    let input = document.createElement("input");
+    input.className = "form-control";
+    input.setAttribute("type", this.type);
+    input.setAttribute("name", this.name);
+    input.value = this.value;
+
+    inputField.appendChild(label);
+    inputField.appendChild(input);
+
+    return inputField;
+  };
+
+  constructor(name: string, label: string, value: string = "") {
     this.name = name;
     this.label = label;
     this.value = value;
+    this.type = FieldType.Date;
   }
 }

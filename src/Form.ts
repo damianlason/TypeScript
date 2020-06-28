@@ -5,6 +5,7 @@ import { SelectField } from "./fields/SelectField.js";
 import { CheckboxField } from "./fields/CheckboxField.js";
 import { TextAreaField } from "./fields/TextAreaField.js";
 import { FieldType } from "./enums/FieldType.js";
+import { DateField } from "./fields/DateField.js";
 
 export class Form {
   formContainer = document.querySelector("#form-container") as HTMLDivElement;
@@ -23,6 +24,7 @@ export class Form {
       ]),
       new CheckboxField("checkboxField", "Czy preferujesz e-learning?"),
       new TextAreaField("textareaField", "Uwagi"),
+      new DateField("dateField", "Data urodzin"),
     ];
 
     this.render();
