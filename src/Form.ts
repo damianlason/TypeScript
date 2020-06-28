@@ -6,6 +6,7 @@ import { CheckboxField } from "./fields/CheckboxField.js";
 import { TextAreaField } from "./fields/TextAreaField.js";
 import { FieldType } from "./enums/FieldType.js";
 import { DateField } from "./fields/DateField.js";
+import { LocStorage } from "./LocStorage.js";
 
 export class Form {
   formContainer = document.querySelector("#form-container") as HTMLDivElement;
@@ -31,12 +32,14 @@ export class Form {
   }
 
   getValue = () => {
-    let form: HTMLFormElement = document.querySelector('form') as HTMLFormElement;
+    let form: HTMLFormElement = document.querySelector(
+      "form"
+    ) as HTMLFormElement;
     let formData: FormData = new FormData(form);
 
-    formData.forEach((field) => {
-      console.log(field);
-    });
+    const storage = new LocStorage();
+
+    storage.saveDocument(formData);
 
     return formData;
   };
