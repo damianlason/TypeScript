@@ -32,4 +32,6 @@ export class InputField implements Field {
     this.value = value;
     this.type = FieldType.Text;
   }
+
+  
 }
