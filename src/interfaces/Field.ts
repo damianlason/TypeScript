@@ -4,6 +4,6 @@ export interface Field {
   name: string;
   label: string;
   type: FieldType;
-  value: string;
+  value: string | boolean;
   render: () => HTMLDivElement;
 }

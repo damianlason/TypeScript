@@ -5,7 +5,7 @@ export class CheckboxField implements Field {
   name: string;
   label: string;
   type: FieldType.Checkbox;
-  value: string;
+  value: boolean;
 
   render: () => HTMLDivElement = (): HTMLDivElement => {
     let checkboxField = document.createElement('div');
@@ -20,7 +20,7 @@ export class CheckboxField implements Field {
     input.className = 'form-check-input';
     input.setAttribute('type', this.type);
     input.setAttribute('name', this.name);
-    input.value = this.value;
+    input.checked = this.value;
 
     checkboxField.appendChild(input);
     checkboxField.appendChild(label);
@@ -28,7 +28,7 @@ export class CheckboxField implements Field {
     return checkboxField;
 };
 
-  constructor(name: string, label: string, value: string = '') {
+  constructor(name: string, label: string, value: boolean = false) {
     this.name = name;
     this.label = label;
     this.value = value;
