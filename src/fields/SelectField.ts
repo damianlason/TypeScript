@@ -1,5 +1,6 @@
 import { Field } from "../interfaces/Field.js";
 import { FieldType } from "../enums/FieldType.js";
+import { FieldLabel } from "./FieldLabel.js";
 
 export class SelectField implements Field {
   name: string;
@@ -9,25 +10,23 @@ export class SelectField implements Field {
   options: string[];
 
   render: () => HTMLDivElement = (): HTMLDivElement => {
-    let selectField = document.createElement('div');
-    selectField.className = 'form-group';
+    let selectField = document.createElement("div");
+    selectField.className = "form-group";
 
-    let label = document.createElement('label');
-    label.innerText = this.label;
-    label.setAttribute('for', this.name);
+    let label = new FieldLabel(this).render();
 
-    let select = document.createElement('select');
-    select.className = 'form-control';
-    select.setAttribute('name', this.name);
+    let select = document.createElement("select");
+    select.className = "form-control";
+    select.setAttribute("name", this.name);
     select.value = this.value;
 
-    let defaultOption = document.createElement('option');
-    defaultOption.innerText = 'Wybierz';
+    let defaultOption = document.createElement("option");
+    defaultOption.innerText = "Wybierz";
 
     select.appendChild(defaultOption);
 
-    this.options.forEach(optionText => {
-      let option = document.createElement('option');
+    this.options.forEach((optionText) => {
+      let option = document.createElement("option");
       option.innerText = optionText;
       select.appendChild(option);
     });
@@ -36,9 +35,14 @@ export class SelectField implements Field {
     selectField.appendChild(select);
 
     return selectField;
-};
+  };
 
-  constructor(name: string, label: string, options: string[], value: string = '') {
+  constructor(
+    name: string,
+    label: string,
+    options: string[],
+    value: string = ""
+  ) {
     this.name = name;
     this.label = label;
     this.value = value;
