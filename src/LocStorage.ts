@@ -10,7 +10,10 @@ export class LocStorage implements Storage {
     return docId;
   };
 
-  loadDocument: (docId: string) => any;
+  loadDocument = (docId: string) => {
+    return localStorage.getItem(docId);
+  };
+
   getDocuments: () => string[];
 
   private generateStorageId = (): string => {
