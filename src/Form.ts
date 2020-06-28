@@ -31,16 +31,14 @@ export class Form {
   }
 
   getValue = () => {
-    this.allFields.forEach((field) => {
-      let fieldDOM = document.querySelector(
-        '[name="' + field.name + '"]'
-      ) as HTMLInputElement;
-      if (field.type === FieldType.Checkbox) {
-        console.log(fieldDOM.checked);
-      } else {
-        console.log(fieldDOM.value);
-      }
+    let form: HTMLFormElement = document.querySelector('form') as HTMLFormElement;
+    let formData: FormData = new FormData(form);
+
+    formData.forEach((field) => {
+      console.log(field);
     });
+
+    return formData;
   };
 
   render = () => {
