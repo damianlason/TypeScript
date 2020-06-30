@@ -1,10 +1,14 @@
-import { LocStorage } from "./LocStorage";
+import { LocStorage } from "./LocStorage.js";
 
 export class DocumentList {
   docListContainer = document.querySelector(
     "#doc-list-container"
   ) as HTMLDivElement;
   docList: string[];
+
+  constructor() {
+    this.getDocumentList();
+  }
 
   getDocumentList = (): void => {
     const locStorage: LocStorage = new LocStorage();
