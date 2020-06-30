@@ -8,6 +8,7 @@ export class DocumentList {
 
   constructor() {
     this.getDocumentList();
+    this.render();
   }
 
   getDocumentList = (): void => {
@@ -44,3 +45,5 @@ export class DocumentList {
     this.docListContainer.appendChild(table);
   };
 }
+
+let docList = new DocumentList();
