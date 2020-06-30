@@ -9,6 +9,27 @@ export class SelectField implements Field {
   value: string;
   options: string[];
 
+  constructor(
+    name: string,
+    label: string,
+    options: string[],
+    value: string = ""
+  ) {
+    this.name = name;
+    this.label = label;
+    this.value = value;
+    this.type = FieldType.Select;
+    this.options = options;
+  }
+
+  getValue = (): string => {
+    const input: HTMLInputElement = document.querySelector(
+      "[attribute='" + this.name + "']"
+    ) as HTMLInputElement;
+    this.value = input.value;
+    return this.value;
+  };
+
   render: () => HTMLDivElement = (): HTMLDivElement => {
     let selectField = document.createElement("div");
     selectField.className = "form-group";
@@ -36,17 +57,4 @@ export class SelectField implements Field {
 
     return selectField;
   };
-
-  constructor(
-    name: string,
-    label: string,
-    options: string[],
-    value: string = ""
-  ) {
-    this.name = name;
-    this.label = label;
-    this.value = value;
-    this.type = FieldType.Select;
-    this.options = options;
-  }
 }

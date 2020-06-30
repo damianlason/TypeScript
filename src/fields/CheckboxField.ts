@@ -8,7 +8,22 @@ export class CheckboxField implements Field {
   type: FieldType.Checkbox;
   value: boolean;
 
-  render: () => HTMLDivElement = (): HTMLDivElement => {
+  constructor(name: string, label: string, value: boolean = false) {
+    this.name = name;
+    this.label = label;
+    this.value = value;
+    this.type = FieldType.Checkbox;
+  }
+
+  getValue = (): boolean => {
+    const input: HTMLInputElement = document.querySelector(
+      "[attribute='" + this.name + "']"
+    ) as HTMLInputElement;
+    this.value = input.checked;
+    return this.value;
+  };
+
+  render = (): HTMLDivElement => {
     let checkboxField = document.createElement("div");
     checkboxField.className = "form-group form-check";
 
@@ -25,11 +40,4 @@ export class CheckboxField implements Field {
 
     return checkboxField;
   };
-
-  constructor(name: string, label: string, value: boolean = false) {
-    this.name = name;
-    this.label = label;
-    this.value = value;
-    this.type = FieldType.Checkbox;
-  }
 }

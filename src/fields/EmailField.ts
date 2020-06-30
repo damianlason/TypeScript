@@ -8,6 +8,21 @@ export class EmailField implements Field {
   type: FieldType.Email;
   value: string;
 
+  constructor(name: string, label: string, value: string = "") {
+    this.name = name;
+    this.label = label;
+    this.value = value;
+    this.type = FieldType.Email;
+  }
+
+  getValue = (): string => {
+    const input: HTMLInputElement = document.querySelector(
+      "[attribute='" + this.name + "']"
+    ) as HTMLInputElement;
+    this.value = input.value;
+    return this.value;
+  };
+
   render: () => HTMLDivElement = (): HTMLDivElement => {
     let emailField = document.createElement("div");
     emailField.className = "form-group";
@@ -25,11 +40,4 @@ export class EmailField implements Field {
 
     return emailField;
   };
-
-  constructor(name: string, label: string, value: string = "") {
-    this.name = name;
-    this.label = label;
-    this.value = value;
-    this.type = FieldType.Email;
-  }
 }

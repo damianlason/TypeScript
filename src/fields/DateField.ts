@@ -8,6 +8,21 @@ export class DateField implements Field {
   type: FieldType.Date;
   value: string;
 
+  constructor(name: string, label: string, value: string = "") {
+    this.name = name;
+    this.label = label;
+    this.value = value;
+    this.type = FieldType.Date;
+  }
+
+  getValue = (): string => {
+    const input: HTMLInputElement = document.querySelector(
+      "[attribute='" + this.name + "']"
+    ) as HTMLInputElement;
+    this.value = input.value;
+    return this.value;
+  };
+
   render: () => HTMLDivElement = (): HTMLDivElement => {
     let inputField = document.createElement("div");
     inputField.className = "form-group";
@@ -25,11 +40,4 @@ export class DateField implements Field {
 
     return inputField;
   };
-
-  constructor(name: string, label: string, value: string = "") {
-    this.name = name;
-    this.label = label;
-    this.value = value;
-    this.type = FieldType.Date;
-  }
 }
