@@ -1,4 +1,12 @@
+import { LocStorage } from "./LocStorage";
+
 export class DocumentList {
-  getDocumentList: () => {};
+  docList: string[];
+
+  getDocumentList = (): void => {
+    const locStorage: LocStorage = new LocStorage();
+    this.docList = locStorage.getDocuments();
+  };
+
   render: () => {};
 }
