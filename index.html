@@ -9,21 +9,27 @@
     <meta name="author" content="Damian Lason" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
 
     <script src="node_modules/jquery/dist/jquery.min.js" defer></script>
     <script src="node_modules/popper.js/dist/popper.min.js" defer></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js" defer></script>
+    <script
+      src="node_modules/bootstrap/dist/js/bootstrap.min.js"
+      defer
+    ></script>
 
     <script type="module" src="dist/App.js" defer></script>
   </head>
 
   <body>
-    <div class="container">
-      <div class="row">
-        <a class="btn btn-primary" href="new-document.html" role="button">Nowy formularz</a>
-        <a class="btn btn-primary" href="document-list.html" role="button">Lista dokumentów</a>
-      </div>
-    </div>
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="document-list.html">Lista dokumentów</a>
+    </nav>
+    <nav class="navbar navbar-light bg-light">
+      <a class="navbar-brand" href="new-document.html">Nowy formularz</a>
+    </nav>
   </body>
 </html>
