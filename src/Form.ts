@@ -4,7 +4,6 @@ import { EmailField } from "./fields/EmailField.js";
 import { SelectField } from "./fields/SelectField.js";
 import { CheckboxField } from "./fields/CheckboxField.js";
 import { TextAreaField } from "./fields/TextAreaField.js";
-import { FieldType } from "./enums/FieldType.js";
 import { DateField } from "./fields/DateField.js";
 import { LocStorage } from "./LocStorage.js";
 
@@ -66,3 +65,5 @@ export class Form {
     this.formContainer.appendChild(form);
   };
 }
+
+let form: Form = new Form();
