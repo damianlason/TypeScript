@@ -65,7 +65,7 @@ export class Form {
     let backButton = document.createElement("button");
     backButton.type = "button";
     backButton.className = "btn btn-outline-danger";
-    backButton.innerText = "Cofnij";
+    backButton.innerText = "Wstecz";
 
     form.appendChild(backButton);
 

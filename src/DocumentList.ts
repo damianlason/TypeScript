@@ -48,7 +48,7 @@ export class DocumentList {
     let backButton = document.createElement("button");
     backButton.type = "button";
     backButton.className = "btn btn-outline-danger";
-    backButton.innerText = "Powrót";
+    backButton.innerText = "Wstecz";
 
     this.docListContainer.appendChild(backButton);
 
