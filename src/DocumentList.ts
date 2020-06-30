@@ -1,4 +1,5 @@
 import { LocStorage } from "./LocStorage.js";
+import { threadId } from "worker_threads";
 
 export class DocumentList {
   docListContainer = document.querySelector(
@@ -43,6 +44,18 @@ export class DocumentList {
     table.appendChild(tableBody);
 
     this.docListContainer.appendChild(table);
+
+    let backButton = document.createElement("button");
+    backButton.type = "button";
+    backButton.className = "btn btn-outline-danger";
+    backButton.innerText = "Powrót";
+
+    this.docListContainer.appendChild(backButton);
+
+    backButton.addEventListener("click", (e: Event) => {
+      e.preventDefault();
+      location.replace("/");
+    });
   };
 }
 

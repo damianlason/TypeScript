@@ -53,13 +53,25 @@ export class Form {
     let submitButton = document.createElement("button");
     submitButton.type = "submit";
     submitButton.className = "btn btn-primary";
-    submitButton.innerText = "Wyślij";
+    submitButton.innerText = "Zapisz";
 
     form.appendChild(submitButton);
 
     form.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       this.getValue();
+    });
+
+    let backButton = document.createElement("button");
+    backButton.type = "button";
+    backButton.className = "btn btn-outline-danger";
+    backButton.innerText = "Cofnij";
+
+    form.appendChild(backButton);
+
+    backButton.addEventListener("click", (e: Event) => {
+      e.preventDefault();
+      location.replace("/");
     });
 
     this.formContainer.appendChild(form);
