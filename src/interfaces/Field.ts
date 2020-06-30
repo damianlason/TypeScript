@@ -6,4 +6,5 @@ export interface Field {
   type: FieldType;
   value: string | boolean;
   render: () => HTMLDivElement;
+  getValue: () => string | boolean;
 }
