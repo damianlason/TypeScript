@@ -1,10 +1,10 @@
 import { Form } from "./Form.js";
+import { DocumentList } from "./DocumentList.js";
 
 export class App {
-  form: Form;
 
   constructor() {
-    this.form = new Form();
+    
   }
   
 }
