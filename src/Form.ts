@@ -7,12 +7,15 @@ import { TextAreaField } from "./fields/TextAreaField.js";
 import { DateField } from "./fields/DateField.js";
 import { LocStorage } from "./LocStorage.js";
 import { FieldType } from "./enums/FieldType.js";
+import { Router } from "./Router.js";
 
 export class Form {
+  storage: LocStorage;
   formContainer = document.querySelector("#form-container") as HTMLDivElement;
   allFields: Field[];
 
   constructor() {
+    this.storage = new LocStorage();
     this.allFields = [
       new InputField("nameField", "Imię"),
       new InputField("surnameField", "Nazwisko"),
@@ -27,6 +30,16 @@ export class Form {
       new TextAreaField("textareaField", "Uwagi"),
       new DateField("dateField", "Data urodzin"),
     ];
+
+    const docId = Router.getParam("id");
+
+    if (docId !== null) {
+      const loadedDocument = JSON.parse(this.storage.loadDocument(docId)!);
+
+      this.allFields.forEach((field) => {
+        field.value = loadedDocument[field.name];
+      });
+    }
 
     this.render();
   }
@@ -43,9 +56,7 @@ export class Form {
       }
     });
 
-    const storage = new LocStorage();
-
-    storage.saveDocument(formData);
+    this.storage.saveDocument(formData);
 
     return formData;
   };
@@ -78,7 +89,7 @@ export class Form {
 
     backButton.addEventListener("click", (e: Event) => {
       e.preventDefault();
-      location.replace("/");
+      history.back();
     });
 
     this.formContainer.appendChild(form);
