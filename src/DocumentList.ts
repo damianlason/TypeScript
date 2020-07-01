@@ -1,20 +1,28 @@
 import { LocStorage } from "./LocStorage.js";
-import { threadId } from "worker_threads";
 
 export class DocumentList {
   docListContainer = document.querySelector(
     "#doc-list-container"
   ) as HTMLDivElement;
   docList: string[];
+  locStorage: LocStorage;
 
   constructor() {
-    this.getDocumentList();
+    this.locStorage = new LocStorage();
+    this.docList = this.getDocumentList();
     this.render();
   }
 
-  getDocumentList = (): void => {
-    const locStorage: LocStorage = new LocStorage();
-    this.docList = locStorage.getDocuments();
+  getDocumentList = (): string[] => {
+    return this.locStorage.getDocuments();
+  };
+
+  getDocument = (docId: string) => {
+    return this.locStorage.loadDocument(docId);
+  };
+
+  removeDocument = (docId: string) => {
+    this.locStorage.removeDocument(docId);
   };
 
   render = () => {
@@ -26,8 +34,12 @@ export class DocumentList {
     let tableHeaderRecord = document.createElement("tr");
     let tableHeaderRecordContent = document.createElement("th");
     tableHeaderRecordContent.innerText = "ID dokumentu";
-
     tableHeaderRecord.appendChild(tableHeaderRecordContent);
+
+    tableHeaderRecordContent = document.createElement("th");
+    tableHeaderRecordContent.innerText = "Operacje";
+    tableHeaderRecord.appendChild(tableHeaderRecordContent);
+
     tableHeader.appendChild(tableHeaderRecord);
     table.appendChild(tableHeader);
 
@@ -38,6 +50,19 @@ export class DocumentList {
       let tableRecordData = document.createElement("td");
       tableRecordData.innerText = docID;
       tableBodyRecord.appendChild(tableRecordData);
+
+      tableRecordData = document.createElement("td");
+      tableRecordData.innerHTML =
+        '<a class="btn btn-primary" href="edit-document.html?id=' +
+        docID +
+        '" role="button">Edytuj</a>';
+      tableBodyRecord.appendChild(tableRecordData);
+
+      tableRecordData = document.createElement("td");
+      tableRecordData.innerHTML =
+        '<a class="btn btn-danger" href="#" role="button">Usuń</a>';
+      tableBodyRecord.appendChild(tableRecordData);
+
       tableBody.appendChild(tableBodyRecord);
     });
 

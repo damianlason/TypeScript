@@ -23,10 +23,27 @@ export class LocStorage implements Storage {
     return JSON.parse(localStorage.getItem("docList")!);
   };
 
+  removeDocument = (docId: string) => {
+    this.removeFromDocList(docId);
+    localStorage.removeItem(docId);
+  };
+
   private addToDocList = (docId: string): void => {
     let docList: string[] = JSON.parse(localStorage.getItem("docList")!);
     docList.push(docId);
     localStorage.setItem("docList", JSON.stringify(docList));
+  };
+
+  private removeFromDocList = (docId: string): void => {
+    let docList: string[] = JSON.parse(localStorage.getItem("docList")!);
+    this.removeFromArray(docList, docId);
+    localStorage.setItem("docList", JSON.stringify(docList));
+  };
+
+  private removeFromArray = (array: string[], keyToRemove: string) => {
+    array.forEach((item, index) => {
+      if (item === keyToRemove) array.splice(index, 1);
+    });
   };
 
   private initDocList = (): void => {
