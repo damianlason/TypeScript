@@ -33,6 +33,7 @@ export class TextAreaField implements Field {
     input.className = "form-control";
     input.setAttribute("rows", "5");
     input.setAttribute("name", this.name);
+    input.value = this.value;
 
     textAreaField.appendChild(label);
     textAreaField.appendChild(input);

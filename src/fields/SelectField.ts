@@ -49,6 +49,9 @@ export class SelectField implements Field {
     this.options.forEach((optionText) => {
       let option = document.createElement("option");
       option.innerText = optionText;
+      if (this.value === optionText) {
+        option.selected = true;
+      }
       select.appendChild(option);
     });
 
