@@ -6,6 +6,7 @@ import { CheckboxField } from "./fields/CheckboxField.js";
 import { TextAreaField } from "./fields/TextAreaField.js";
 import { DateField } from "./fields/DateField.js";
 import { LocStorage } from "./LocStorage.js";
+import { FieldType } from "./enums/FieldType.js";
 
 export class Form {
   formContainer = document.querySelector("#form-container") as HTMLDivElement;
@@ -35,6 +36,12 @@ export class Form {
       "form"
     ) as HTMLFormElement;
     let formData: FormData = new FormData(form);
+
+    this.allFields.forEach((field) => {
+      if (field.type === FieldType.Checkbox) {
+        formData.set(field.name, formData.has(field.name) ? "1" : "0");
+      }
+    });
 
     const storage = new LocStorage();
 
