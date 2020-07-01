@@ -15,6 +15,13 @@ export class LocStorage implements Storage {
     return docId;
   };
 
+  editDocument = (docId: string, formData: FormData): string => {
+    let formDataToSave = this.prepareFormData(formData);
+    localStorage.setItem(docId, formDataToSave);
+
+    return docId;
+  };
+
   loadDocument = (docId: string) => {
     return localStorage.getItem(docId);
   };

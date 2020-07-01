@@ -8,11 +8,14 @@ import { DateField } from "./fields/DateField.js";
 import { LocStorage } from "./LocStorage.js";
 import { FieldType } from "./enums/FieldType.js";
 import { Router } from "./Router.js";
+import { FormType } from "./enums/FormType.js";
 
 export class Form {
   storage: LocStorage;
   formContainer = document.querySelector("#form-container") as HTMLDivElement;
   allFields: Field[];
+  type: FormType;
+  docId: string | null;
 
   constructor() {
     this.storage = new LocStorage();
@@ -31,10 +34,11 @@ export class Form {
       new DateField("dateField", "Data urodzin"),
     ];
 
-    const docId = Router.getParam("id");
+    this.docId = Router.getParam("id");
 
-    if (docId !== null) {
-      const loadedDocument = JSON.parse(this.storage.loadDocument(docId)!);
+    if (this.docId !== null) {
+      this.type = FormType.Edit;
+      const loadedDocument = JSON.parse(this.storage.loadDocument(this.docId)!);
 
       this.allFields.forEach((field) => {
         field.value = loadedDocument[field.name];
@@ -44,7 +48,7 @@ export class Form {
     this.render();
   }
 
-  getValue = () => {
+  getValue = (): FormData => {
     let form: HTMLFormElement = document.querySelector(
       "form"
     ) as HTMLFormElement;
@@ -56,9 +60,16 @@ export class Form {
       }
     });
 
-    this.storage.saveDocument(formData);
-
     return formData;
+  };
+
+  save = (docId: string | null) => {
+    const formData: FormData = this.getValue();
+    if (docId !== null) {
+      this.storage.editDocument(docId, formData);
+    } else {
+      this.storage.saveDocument(formData);
+    }
   };
 
   render = () => {
@@ -77,7 +88,7 @@ export class Form {
 
     form.addEventListener("submit", (e: Event) => {
       e.preventDefault();
-      this.getValue();
+      this.save(this.docId);
     });
 
     let backButton = document.createElement("button");
