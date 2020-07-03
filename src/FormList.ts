@@ -1,28 +1,28 @@
 import { LocStorage } from "./LocStorage.js";
 
-export class DocumentList {
-  docListContainer = document.querySelector(
-    "#doc-list-container"
+export class FormList {
+  formListContainer = document.querySelector(
+    "#form-list-container"
   ) as HTMLDivElement;
-  docList: string[];
+  formList: string[];
   locStorage: LocStorage;
 
   constructor() {
     this.locStorage = new LocStorage();
-    this.docList = this.getDocumentList();
+    this.formList = this.getFormList();
     this.render();
   }
 
-  getDocumentList = (): string[] => {
-    return this.locStorage.getDocuments();
+  getFormList = (): string[] => {
+    return this.locStorage.getForms();
   };
 
-  getDocument = (docId: string) => {
-    return this.locStorage.loadDocument(docId);
+  getForm = (formId: string) => {
+    return this.locStorage.loadDocument(formId);
   };
 
-  removeDocument = (docId: string) => {
-    this.locStorage.removeDocument(docId);
+  removeForm = (formId: string) => {
+    this.locStorage.removeDocument(formId);
   };
 
   render = () => {
@@ -33,7 +33,7 @@ export class DocumentList {
 
     let tableHeaderRecord = document.createElement("tr");
     let tableHeaderRecordContent = document.createElement("th");
-    tableHeaderRecordContent.innerText = "ID dokumentu";
+    tableHeaderRecordContent.innerText = "ID formularza";
     tableHeaderRecord.appendChild(tableHeaderRecordContent);
 
     tableHeaderRecordContent = document.createElement("th");
@@ -45,16 +45,16 @@ export class DocumentList {
 
     let tableBody = document.createElement("tbody");
 
-    this.docList.forEach((docID) => {
+    this.formList.forEach((formId) => {
       let tableBodyRecord = document.createElement("tr");
       let tableRecordData = document.createElement("td");
-      tableRecordData.innerText = docID;
+      tableRecordData.innerText = formId;
       tableBodyRecord.appendChild(tableRecordData);
 
       tableRecordData = document.createElement("td");
       tableRecordData.innerHTML =
-        '<a class="btn btn-primary" href="edit-document.html?id=' +
-        docID +
+        '<a class="btn btn-primary" href="edit-form.html?id=' +
+        formId +
         '" role="button">Edytuj</a>';
       tableBodyRecord.appendChild(tableRecordData);
 
@@ -66,7 +66,7 @@ export class DocumentList {
 
       removeButton.addEventListener("click", (e: Event) => {
         e.preventDefault();
-        this.removeDocument(docID);
+        this.removeForm(formId);
         location.reload();
       });
 
@@ -78,14 +78,14 @@ export class DocumentList {
 
     table.appendChild(tableBody);
 
-    this.docListContainer.appendChild(table);
+    this.formListContainer.appendChild(table);
 
     let backButton = document.createElement("button");
     backButton.type = "button";
     backButton.className = "btn btn-outline-danger";
     backButton.innerText = "Wstecz";
 
-    this.docListContainer.appendChild(backButton);
+    this.formListContainer.appendChild(backButton);
 
     backButton.addEventListener("click", (e: Event) => {
       e.preventDefault();
@@ -94,4 +94,4 @@ export class DocumentList {
   };
 }
 
-let docList = new DocumentList();
+let formList = new FormList();

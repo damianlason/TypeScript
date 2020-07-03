@@ -17,7 +17,7 @@ export class CheckboxField implements Field {
 
   getValue = (): boolean => {
     const input: HTMLInputElement = document.querySelector(
-      "[attribute='" + this.name + "']"
+      "input[name='" + this.name + "']"
     ) as HTMLInputElement;
     this.value = input.checked;
     return this.value;

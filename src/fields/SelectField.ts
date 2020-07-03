@@ -12,7 +12,12 @@ export class SelectField implements Field {
   constructor(
     name: string,
     label: string,
-    options: string[],
+    options: string[] = [
+      "Kognitywistyka",
+      "Logistyka",
+      "Informatyka",
+      "Filozofia",
+    ],
     value: string = ""
   ) {
     this.name = name;

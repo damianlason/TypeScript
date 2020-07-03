@@ -56,7 +56,7 @@ export class Form {
 
     this.allFields.forEach((field) => {
       if (field.type === FieldType.Checkbox) {
-        formData.set(field.name, formData.has(field.name) ? "1" : "0");
+        formData.set(field.name, <string>field.getValue());
       }
     });
 
@@ -89,6 +89,7 @@ export class Form {
     form.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       this.save(this.docId);
+      location.replace("document-list.html");
     });
 
     let backButton = document.createElement("button");
