@@ -18,11 +18,11 @@ export class FormList {
   };
 
   getForm = (formId: string) => {
-    return this.locStorage.loadDocument(formId);
+    return this.locStorage.loadForm(formId);
   };
 
   removeForm = (formId: string) => {
-    this.locStorage.removeDocument(formId);
+    this.locStorage.removeForm(formId);
   };
 
   render = () => {
@@ -53,9 +53,9 @@ export class FormList {
 
       tableRecordData = document.createElement("td");
       tableRecordData.innerHTML =
-        '<a class="btn btn-primary" href="edit-form.html?id=' +
+        '<a class="btn btn-primary" href="new-document.html?id=' +
         formId +
-        '" role="button">Edytuj</a>';
+        '" role="button">Wypełnij</a>';
       tableBodyRecord.appendChild(tableRecordData);
 
       tableRecordData = document.createElement("td");
