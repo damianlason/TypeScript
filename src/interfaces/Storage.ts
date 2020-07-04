@@ -1,5 +1,5 @@
 export interface Storage {
-  saveDocument: (formData: any) => string;
+  saveDocument: (formData: any, formId: string) => string;
   loadDocument: (docId: string) => any;
   getDocuments: () => string[];
 }

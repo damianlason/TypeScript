@@ -53,7 +53,7 @@ export class FormList {
 
       tableRecordData = document.createElement("td");
       tableRecordData.innerHTML =
-        '<a class="btn btn-primary" href="new-document.html?id=' +
+        '<a class="btn btn-primary" href="new-document.html?formId=' +
         formId +
         '" role="button">Wypełnij</a>';
       tableBodyRecord.appendChild(tableRecordData);

@@ -7,6 +7,6 @@ export class Router {
       window.location.search.length
     );
     const urlParams = new URLSearchParams(query);
-    return urlParams.get("id");
+    return urlParams.get(key);
   }
 }

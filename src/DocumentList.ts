@@ -53,7 +53,7 @@ export class DocumentList {
 
       tableRecordData = document.createElement("td");
       tableRecordData.innerHTML =
-        '<a class="btn btn-primary" href="edit-document.html?id=' +
+        '<a class="btn btn-primary" href="edit-document.html?docId=' +
         docID +
         '" role="button">Edytuj</a>';
       tableBodyRecord.appendChild(tableRecordData);

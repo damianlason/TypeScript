@@ -1,5 +1,4 @@
 import { Storage } from "./interfaces/Storage.js";
-import { Form } from "./Form.js";
 import { Field } from "./interfaces/Field.js";
 
 export class LocStorage implements Storage {
@@ -8,9 +7,9 @@ export class LocStorage implements Storage {
     this.initFormList();
   }
 
-  saveDocument = (formData: FormData): string => {
+  saveDocument = (formData: FormData, formId: string | null): string => {
     const docId: string = this.generateStorageId();
-    let formDataToSave = this.prepareFormData(formData);
+    let formDataToSave = this.prepareFormData(formData, formId);
 
     this.addToDocList(docId);
     localStorage.setItem(docId, formDataToSave);
@@ -28,8 +27,12 @@ export class LocStorage implements Storage {
     return formId;
   };
 
-  editDocument = (docId: string, formData: FormData): string => {
-    let formDataToSave = this.prepareFormData(formData);
+  editDocument = (
+    docId: string,
+    formData: FormData,
+    formId: string | null
+  ): string => {
+    let formDataToSave = this.prepareFormData(formData, formId);
     localStorage.setItem(docId, formDataToSave);
 
     return docId;
@@ -107,10 +110,15 @@ export class LocStorage implements Storage {
     return type + "-" + Date.now();
   };
 
-  private prepareFormData = (formData: FormData): string => {
+  private prepareFormData = (
+    formData: FormData,
+    formId: string | null
+  ): string => {
     let formDataToSave: {
       [key: string]: any;
     } = {};
+
+    formDataToSave["formId"] = formId;
 
     formData.forEach((value, key) => {
       formDataToSave[key] = value;

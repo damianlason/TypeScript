@@ -16,29 +16,45 @@ export class Form {
   allFields: Field[];
   type: FormType;
   docId: string | null;
+  formId: string | null;
 
   constructor() {
     this.storage = new LocStorage();
-    this.allFields = [
-      new InputField("nameField", "Imię"),
-      new InputField("surnameField", "Nazwisko"),
-      new EmailField("emailField", "Adres Email"),
-      new SelectField("selectField", "Wybrany kierunek studiów", [
-        "Kognitywistyka",
-        "Logistyka",
-        "Informatyka",
-        "Filozofia",
-      ]),
-      new CheckboxField("checkboxField", "Czy preferujesz e-learning?"),
-      new TextAreaField("textareaField", "Uwagi"),
-      new DateField("dateField", "Data urodzin"),
-    ];
+    this.docId = Router.getParam("docId");
+    this.formId = Router.getParam("formId");
+    this.allFields = [];
 
-    this.docId = Router.getParam("id");
+    if (this.formId !== null) {
+      this.type = FormType.New;
+      const loadedForm = JSON.parse(this.storage.loadForm(this.formId)!);
+
+      for (const key in loadedForm) {
+        if (loadedForm.hasOwnProperty(key)) {
+          const element = loadedForm[key];
+          this.allFields.push(
+            this.createField(element.name, element.label, element.type)
+          );
+        }
+      }
+    }
 
     if (this.docId !== null) {
       this.type = FormType.Edit;
       const loadedDocument = JSON.parse(this.storage.loadDocument(this.docId)!);
+
+      this.formId = loadedDocument.formId;
+      delete loadedDocument.formId;
+
+      const loadedForm = JSON.parse(this.storage.loadForm(this.formId!)!);
+
+      for (const key in loadedForm) {
+        if (loadedForm.hasOwnProperty(key)) {
+          const element = loadedForm[key];
+          this.allFields.push(
+            this.createField(element.name, element.label, element.type)
+          );
+        }
+      }
 
       this.allFields.forEach((field) => {
         field.value = loadedDocument[field.name];
@@ -66,9 +82,9 @@ export class Form {
   save = (docId: string | null) => {
     const formData: FormData = this.getValue();
     if (docId !== null) {
-      this.storage.editDocument(docId, formData);
+      this.storage.editDocument(docId, formData, this.formId);
     } else {
-      this.storage.saveDocument(formData);
+      this.storage.saveDocument(formData, this.formId);
     }
   };
 
@@ -105,6 +121,23 @@ export class Form {
     });
 
     this.formContainer.appendChild(form);
+  };
+
+  createField = (name: string, label: string, type: FieldType): Field => {
+    switch (type) {
+      case FieldType.Checkbox:
+        return new CheckboxField(name, label);
+      case FieldType.Date:
+        return new DateField(name, label);
+      case FieldType.Email:
+        return new EmailField(name, label);
+      case FieldType.Select:
+        return new SelectField(name, label);
+      case FieldType.Text:
+        return new InputField(name, label);
+      case FieldType.Textarea:
+        return new TextAreaField(name, label);
+    }
   };
 }
 
