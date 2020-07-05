@@ -60,8 +60,6 @@ export class Form {
         field.value = loadedDocument[field.name];
       });
     }
-
-    this.render();
   }
 
   getValue = (): FormData => {
@@ -123,7 +121,11 @@ export class Form {
     this.formContainer.appendChild(form);
   };
 
-  createField = (name: string, label: string, type: FieldType): Field => {
+  private createField = (
+    name: string,
+    label: string,
+    type: FieldType
+  ): Field => {
     switch (type) {
       case FieldType.Checkbox:
         return new CheckboxField(name, label);
@@ -140,5 +142,3 @@ export class Form {
     }
   };
 }
-
-let form: Form = new Form();

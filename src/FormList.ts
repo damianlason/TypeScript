@@ -93,5 +93,3 @@ export class FormList {
     });
   };
 }
-
-let formList = new FormList();

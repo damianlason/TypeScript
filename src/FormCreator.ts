@@ -7,6 +7,7 @@ import { InputField } from "./fields/InputField.js";
 import { TextAreaField } from "./fields/TextAreaField.js";
 import { SelectField } from "./fields/SelectField.js";
 import { EmailField } from "./fields/EmailField.js";
+import { Form } from "./Form.js";
 
 export class FormCreator {
   formListContainer = document.querySelector(
@@ -15,7 +16,7 @@ export class FormCreator {
   formAddElementContainer = document.querySelector(
     "#add-new-field-container"
   ) as HTMLDivElement;
-  elementList: Field[];
+  form: Form;
   locStorage: LocStorage;
   fieldTypes: FieldType[] = [
     FieldType.Text,
@@ -29,26 +30,28 @@ export class FormCreator {
 
   constructor() {
     this.locStorage = new LocStorage();
-    this.elementList = [];
+    this.newForm();
     this.render();
   }
 
-  newForm = () => {};
+  newForm = () => {
+    this.form = new Form();
+  };
 
   saveForm = () => {
-    this.locStorage.saveForm(this.elementList);
+    this.locStorage.saveForm(this.form);
     location.replace("form-list.html");
   };
 
   removeElement = (field: Field) => {
-    this.elementList.forEach((item, index) => {
-      if (item === field) this.elementList.splice(index, 1);
+    this.form.allFields.forEach((item, index) => {
+      if (item === field) this.form.allFields.splice(index, 1);
     });
     this.renderFormList();
   };
 
   addElement = (field: Field) => {
-    this.elementList.push(field);
+    this.form.allFields.push(field);
     this.render();
   };
 
@@ -73,6 +76,7 @@ export class FormCreator {
     input.className = "form-control";
     input.setAttribute("type", FieldType.Text);
     input.setAttribute("name", "fieldName");
+    input.required = true;
 
     nameField.appendChild(nameFieldlabel);
     nameField.appendChild(input);
@@ -157,7 +161,7 @@ export class FormCreator {
 
     let tableBody = document.createElement("tbody");
 
-    this.elementList.forEach((element) => {
+    this.form.allFields.forEach((element) => {
       let tableBodyRecord = document.createElement("tr");
       let tableRecordData = document.createElement("td");
       tableRecordData.innerText = element.name + " - " + element.type;
@@ -228,5 +232,3 @@ export class FormCreator {
     }
   };
 }
-
-let formCreator = new FormCreator();

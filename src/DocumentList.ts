@@ -93,5 +93,3 @@ export class DocumentList {
     });
   };
 }
-
-let docList = new DocumentList();

@@ -1,5 +1,6 @@
 import { Storage } from "./interfaces/Storage.js";
 import { Field } from "./interfaces/Field.js";
+import { Form } from "./Form.js";
 
 export class LocStorage implements Storage {
   constructor() {
@@ -17,9 +18,9 @@ export class LocStorage implements Storage {
     return docId;
   };
 
-  saveForm = (fields: Field[]): string => {
+  saveForm = (form: Form): string => {
     const formId: string = this.generateStorageId("form");
-    let formToSave = this.prepareForm(fields);
+    let formToSave = this.prepareForm(form.allFields);
 
     this.addToFormList(formId);
     localStorage.setItem(formId, formToSave);
